@@ -2829,7 +2829,7 @@ PHP_FUNCTION(date_format)
 }
 /* }}} */
 
-static void php_date_modify(zval *object, char *modify, int modify_len, zval *return_value)
+static void php_date_modify(zval *object, char *modify, int modify_len, zval *return_value TSRMLS_DC)
 {
 	php_date_obj *dateobj;
 	timelib_time *tmp_time;
@@ -2898,7 +2898,7 @@ PHP_FUNCTION(date_modify)
 		RETURN_FALSE;
 	}
 
-	php_date_modify(object, modify, modify_len, return_value);
+	php_date_modify(object, modify, modify_len, return_value TSRMLS_CC);
 
 	RETURN_ZVAL(getThis(), 1, 0);
 }
@@ -2917,13 +2917,13 @@ PHP_METHOD(DateTimePoint, modify)
 	}
 	
 	new_object = date_clone_point(object);
-	php_date_modify(new_object, modify, modify_len, return_value);
+	php_date_modify(new_object, modify, modify_len, return_value TSRMLS_CC);
 
 	RETURN_ZVAL(new_object, 0, 1);
 }
 /* }}} */
 
-static void php_date_add(zval *object, zval *interval, zval *return_value)
+static void php_date_add(zval *object, zval *interval, zval *return_value TSRMLS_DC)
 {
 	php_date_obj     *dateobj;
 	php_interval_obj *intobj;
@@ -2967,7 +2967,7 @@ PHP_FUNCTION(date_add)
 		RETURN_FALSE;
 	}
 
-	php_date_add(object, interval, return_value);
+	php_date_add(object, interval, return_value TSRMLS_CC);
 
 	RETURN_ZVAL(object, 1, 0);
 }
@@ -2984,13 +2984,13 @@ PHP_METHOD(DateTimePoint, add)
 	}
 
 	new_object = date_clone_point(object);
-	php_date_add(new_object, interval, return_value);
+	php_date_add(new_object, interval, return_value TSRMLS_CC);
 
 	RETURN_ZVAL(new_object, 0, 1);
 }
 /* }}} */
 
-static void php_date_sub(zval *object, zval *interval, zval *return_value)
+static void php_date_sub(zval *object, zval *interval, zval *return_value TSRMLS_DC)
 {
 	php_date_obj     *dateobj;
 	php_interval_obj *intobj;
@@ -3037,7 +3037,7 @@ PHP_FUNCTION(date_sub)
 		RETURN_FALSE;
 	}
 
-	php_date_sub(object, interval, return_value);
+	php_date_sub(object, interval, return_value TSRMLS_CC);
 
 	RETURN_ZVAL(object, 1, 0);
 }
@@ -3054,7 +3054,7 @@ PHP_METHOD(DateTimePoint, sub)
 	}
 
 	new_object = date_clone_point(object);
-	php_date_sub(new_object, interval, return_value);
+	php_date_sub(new_object, interval, return_value TSRMLS_CC);
 
 	RETURN_ZVAL(new_object, 0, 1);
 }
